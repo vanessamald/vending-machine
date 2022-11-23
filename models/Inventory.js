@@ -21,7 +21,7 @@ Inventory.init(
             defaultValue: 5
         },
         price: {
-            type: DataTypes.DOUBLE(10,2),
+            type: DataTypes.DECIMAL(12,2),
             allowNull: false,
             defaultValue: 0.5
         }
