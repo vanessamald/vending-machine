@@ -26,11 +26,18 @@ router.get('/', (req, res) => {
 // return remaining item quantity (an integer)
 router.get('/:id', (req, res) => {
     Inventory.findOne({
+        attributes: { exclude: ['id', 'price']},
         where: {
             id: req.params.id
         }
+        })
+        .then(dbInventory => res.json(dbInventory))
+        .catch(err => {
+          console.log(err);
+          res.status(500).json(err);
+        })
     })
-})
+
 
 // PUT inventory/:id
 router.put('/:id', (req, res) => {
@@ -52,4 +59,5 @@ router.put('/:id', (req, res) => {
 })
 
 // PUT 
+router.put('/:id')
 module.exports = router;
