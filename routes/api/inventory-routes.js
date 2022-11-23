@@ -2,7 +2,10 @@ const router = require('express').Router();
 const Inventory = require('../../models/Inventory');
 //const { Drinks } = require('../../models/Inventory');
 
-// PUT
+// PUT api/inventory
+router.put('/', (req, res) => {
+
+})
 
 
 // GET api/inventory
@@ -10,17 +13,18 @@ const Inventory = require('../../models/Inventory');
 router.get('/', (req, res) => {
     Inventory.findAll()
     .then(dbInventory => res.json(dbInventory))
-    
+   
     .catch(err => {
         console.log(err);
         res.status(500)
     })
+    
 });
 
 
 // GET api/inventory/:id
 // return remaining item quantity (an integer)
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
     Inventory.findOne({
         where: {
             id: req.params.id
@@ -28,13 +32,24 @@ router.get('/', (req, res) => {
     })
 })
 
-// POST
-
 // PUT inventory/:id
+router.put('/:id', (req, res) => {
+    Inventory.update(req.body, {
+        where: {
+            id: req.params.id
+        }
+    })
+})
 
 // DELETE
+router.delete('/', (req, res) => {
+
+})
 
 // PUT
+router.put('/:id', (req, res) => {
+
+})
 
 // PUT 
 module.exports = router;
