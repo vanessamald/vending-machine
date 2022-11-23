@@ -2,10 +2,12 @@ const router = require('express').Router();
 const Inventory = require('../../models/Inventory');
 //const { Drinks } = require('../../models/Inventory');
 
+/*
 // PUT api/inventory
 router.put('/', (req, res) => {
 
 })
+*/
 
 
 // GET api/inventory //THIS ROUTE IS TESTED AND WORKING
@@ -35,6 +37,7 @@ router.get('/:id', (req, res) => {
         })
     })
 
+/*
 // PUT inventory/:id
 router.put('/:id', (req, res) => {
     Inventory.update(req.body, {
@@ -44,29 +47,34 @@ router.put('/:id', (req, res) => {
         }
     })
 })
+*/
 
 // DELETE
 router.delete('/', (req, res) => {
 })
 
+/*
 // PUT
 router.put('/:id', (req, res) => {
 })
 
 // PUT 
 router.put('/:id')
+*/
 
 // buy a drink
-// POST /api/inventory/buy/:id
-router.post('/:id', (req, res) => {
+// PUT /api/inventory/:id
+// return number of items vended
+router.put('/:id', (req, res) => {
+    
     Inventory.findOne({
         where: {
             id: req.params.id
         }
     }).then((dbInventory) =>{
         console.log(`'Selected ${dbInventory.name} for purchase!'`)
-
-        let number = dbInventory.quantity - 1; 
+        let vendedItem = 1;
+        let number = dbInventory.quantity - vendedItem; 
         
         Inventory.update( 
             { quantity: number},
@@ -74,9 +82,14 @@ router.post('/:id', (req, res) => {
                 id: req.params.id
             }
         }).then((dbInventory) => {
-            console.log(`'Inventory has been update to ${dbInventory} successfully'`);
-        })   
+            console.log(`'Inventory has been updated to ${dbInventory} successfully'`);
+        })
+        res.send(`Thank you for purchasing ${vendedItem} ${dbInventory.name}!`);   
     })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
 })
 
 module.exports = router;
