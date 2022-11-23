@@ -12,15 +12,18 @@ Inventory.init(
             autoIncrement: true
         },
         name: {
-            type: DataTypes.STRING 
+            type: DataTypes.STRING,
+            allowNull: false,
+            
         },
         quantity: {
             type: DataTypes.INTEGER,
             defaultValue: 5
         },
         price: {
-            type: DataTypes.DECIMAL,
-            defaultValue: 0.50
+            type: DataTypes.DOUBLE(10,2),
+            allowNull: false,
+            defaultValue: 0.5
         }
     },
         {
@@ -32,17 +35,12 @@ Inventory.init(
         } 
 );
 
-/*
 Inventory.bulkCreate([
     { name: "La Colombe Vanilla Latte" },
     { name: "Topo Chico" },
     { name: "Fiji Water" },
-
-]).then(() => console.log('Drinks have been added!'))
-*/
-await Inventory.create({
-    name: "Topo Chico"
-});
-
+], {
+    ignoreDuplicates: true
+}).then(() => console.log('Drinks have been added!'))
 
 module.exports = Inventory;
