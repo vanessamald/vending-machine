@@ -1,7 +1,5 @@
 const router = require('express').Router();
 const Inventory = require('../../models/Inventory');
-//const { Drinks } = require('../../models/Inventory');
-
 
 // PUT api/inventory
 router.put('/', (req, res) => {
@@ -11,7 +9,7 @@ router.put('/', (req, res) => {
     const { coins } = req.body;
     console.log(coins);
  
-    if (coins >= 0) {
+    if (coins <= 2) {
         res.header({
             'Content-Type': 'multipart/form-data',
             'X-Coins': `'${coins}'`
@@ -51,8 +49,14 @@ router.get('/:id', (req, res) => {
 // DELETE 
 // set response headers to X-Coins: # of coins to be returned
 router.delete('/', (req, res) => {
-    Inventory.destroy({where: {}}).then(function () {});
-    res.send('Entries Deleted');
+    let { coins } = req.body;
+    if (coins < 2) {
+        res.header({
+            'Content-Type': 'multipart/form-data',
+            'X-Coins': `'${coins}'`
+        })  
+        console.log(`'${coins} quarter(s) will be returned'`)
+    }
 })
 
 // PUT /api/inventory/:id
@@ -98,16 +102,20 @@ router.put('/:id', (req, res) => {
             //'X-Coins': 
         })  
         // send response body of number of items vended
-        res.send({ quantity: `${vendedItem}`});
-        
+        res.send({ quantity: `${vendedItem}`});       
+        }
+
+        // PUT insufficient amount entered
+        // status 403 Not Authorized
+        let { coins } = req.body;
+        if (coins < 2 ) {
+            res.status(403).send('Insufficient amount entered')
+            res.header({
+                'Content-Type': 'multipart/form-data',
+                'X-Coins': `'${coins}'`
+            })
         }
     })
 })
-
-/*
-// PUT insufficient amount entered
-// status 403 Not Authorized
-router.put('/:id')
-*/
 
 module.exports = router;
