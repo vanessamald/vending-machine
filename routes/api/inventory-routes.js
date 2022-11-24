@@ -24,6 +24,7 @@ router.get('/', (req, res) => {
 // GET api/inventory/:id // THIS ROUTE IS TESTED AND WORKING
 // return remaining item quantity (an integer)
 router.get('/:id', (req, res) => {
+    res.status(200);
     Inventory.findOne({
         attributes: { exclude: ['id', 'price']},
         where: {
@@ -53,20 +54,10 @@ router.put('/:id', (req, res) => {
 router.delete('/', (req, res) => {
 })
 
-/*
-// PUT
-router.put('/:id', (req, res) => {
-})
-
-// PUT 
-router.put('/:id')
-*/
-
-// buy a drink
 // PUT /api/inventory/:id
 // return number of items vended
 router.put('/:id', (req, res) => {
-    
+    res.status(200);
     Inventory.findOne({
         where: {
             id: req.params.id
@@ -84,6 +75,16 @@ router.put('/:id', (req, res) => {
         })
         console.log(`'Inventory has been updated to ${dbInventory} successfully'`);
 
+        // if item is out of stock set Response Code to 404 (Not Found)
+        if (dbInventory.quantity <= 0) {
+            console.log('Sorry the selected item is out of stock')
+            res.status(404)
+            res.header({
+                'Content-Type': 'multipart/form-data',
+                'Content-Lenght': '123',
+                //'X-Coins': 
+            })
+        }
         // send response headers that include X-Inventory-Remaining and X-Coins to be returned
         res.header({
             'Content-Type': 'multipart/form-data',
@@ -95,5 +96,11 @@ router.put('/:id', (req, res) => {
         res.send({ quantity: `${vendedItem}`});
         })
     })
+
+/*
+// PUT insufficient amount entered
+// status 403 Not Authorized
+router.put('/:id')
+*/
 
 module.exports = router;
