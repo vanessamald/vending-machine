@@ -77,19 +77,23 @@ router.put('/:id', (req, res) => {
         let number = dbInventory.quantity - vendedItem; 
         
         Inventory.update( 
-            { quantity: number},
+            { quantity: number },
             {where: { 
                 id: req.params.id
             }
-        }).then((dbInventory) => {
-            console.log(`'Inventory has been updated to ${dbInventory} successfully'`);
         })
-        res.send(`Thank you for purchasing ${vendedItem} ${dbInventory.name}!`);   
+        console.log(`'Inventory has been updated to ${dbInventory} successfully'`);
+
+        // send response headers that include X-Inventory-Remaining and X-Coins to be returned
+        res.header({
+            'Content-Type': 'multipart/form-data',
+            'Content-Lenght': '123',
+            'X-Inventory-Remaining': `'${number}'`
+            //'X-Coins': 
+        })  
+        // send response body of number of items vended
+        res.send({ quantity: `${vendedItem}`});
+        })
     })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-})
 
 module.exports = router;
