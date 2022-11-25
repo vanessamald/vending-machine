@@ -41,7 +41,7 @@ Inventory.bulkCreate([
     { name: "Topo Chico", id: 2 },
     { name: "Fiji Water", id: 3 },
 ], {
-    ignoreDuplicates: true
+   ignoreDuplicates: true
 }).then(() => console.log('Drinks have been added!'))
 
 module.exports = Inventory;

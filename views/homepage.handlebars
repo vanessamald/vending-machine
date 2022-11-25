@@ -1,11 +1,14 @@
 <div class="">
     <div>     
-      <label for="drink-choice" class="title">Choose your drink:</label>
-        <select name="drink-choice" >
+      <label for="" class="title">Choose your drink:</label>
+      <p id="select-label"></p>
+        <select name="" id="select-drink">
         {{#each drink}}
-        <option value="{{id}}" id="drink-choice">{{name}} </option>
-        {{/each}}
+        <option index={{@index}} value="{{id}}" id="drink-choice">{{name}} </option>
+         {{/each}}
         </select>
+        
+        <input type="text" id="coins" name="coins">
         <button type="submit" id="submit-drink">Submit</button>
     </div>
 </div>
