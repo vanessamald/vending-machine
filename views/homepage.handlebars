@@ -1,14 +1,16 @@
-<ol class="">
-  {{#each drink}}
-  <li>
-    <div class="">
-      <div class="title">
-        
-        <a  target="_blank">{{name}}</a>
-        <span>({{price}})</span>
-      </div>
-  
+<div class="">
+    <div>     
+      <label for="drink-choice" class="title">Choose your drink:</label>
+        <select name="drink-choice" >
+        {{#each drink}}
+        <option value="{{id}}" id="drink-choice">{{name}} </option>
+        {{/each}}
+        </select>
+        <button type="submit" id="submit-drink">Submit</button>
     </div>
-  </li>
-  {{/each}}
-</ol>
+</div>
+
+
+
+
+ 
