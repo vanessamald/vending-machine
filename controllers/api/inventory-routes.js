@@ -7,7 +7,7 @@ router.put('/', (req, res) => {
     console.log(req.body)
     // deconstruct req.body
 
-    let { coins } = JSON.parse(req.body);
+    let { coins } = req.body;
     console.log(coins);
  
         // send response of coins accepted
