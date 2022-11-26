@@ -4,19 +4,19 @@ const Inventory = require('../../models/Inventory');
 // PUT api/inventory
 router.put('/', (req, res) => {
     res.status(204);
-    //console.log(req.body)
+    console.log(req.body)
     // deconstruct req.body
-    const { coins } = req.body;
+
+    let { coins } = JSON.parse(req.body);
     console.log(coins);
  
-    if (coins <= 2) {
+        // send response of coins accepted
         res.header({
             'Content-Type': 'multipart/form-data',
             'X-Coins': `'${coins}'`
         }) 
         res.send();
-    }
-})
+    })
 
 // GET api/inventory 
 // return array of remaining item quantities (an array of integers)
@@ -49,8 +49,12 @@ router.get('/:id', (req, res) => {
 // DELETE 
 // set response headers to X-Coins: # of coins to be returned
 router.delete('/', (req, res) => {
-    let { coins } = req.body;
-    if (coins < 2) {
+    //console.log(req.body);
+   // let { coins } = req.body;
+    //let coins = req.body;
+    let { coins } = res.json;
+    console.log(coins);
+    if (coins > 2) {
         res.header({
             'Content-Type': 'multipart/form-data',
             'X-Coins': `'${coins}'`

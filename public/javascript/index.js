@@ -1,15 +1,49 @@
-var total = 0;
-var button = document.getElementById('enter-coins');
+var totalCoins = 0;
+var coinButton = document.getElementById('enter-coins');
 var displayCoins = document.getElementById('coin-div');
+var returnDisplay = document.getElementById('return-display');
 
 // get total of coins from vending machine
-button.onclick = function() {
-    total++;
+coinButton.onclick = function() {
+    totalCoins++;
     // convert to dollar amount for user and display total
-    let coins = total /4
-    displayCoins.innerHTML = coins;
-    
+    let amount = totalCoins /4
+    displayCoins.innerHTML = 'Total:' + ' ' + '$' + amount.toFixed(2); 
+
+    // disable Adding Coins button after order submission
+
+
+    // calculate how many coins need to be returned 
+    let coinsReturned = totalCoins -2;
+
+    fetch ('/api/inventory', {
+        method: 'PUT',
+        body: JSON.stringify ({
+            coins: totalCoins
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+          }
+    })
+    // conditional statement to return coins
+    if (totalCoins > 2) {
+        fetch(`/api/inventory`, {
+            method: 'DELETE',
+            response: JSON.stringify({
+                "coin": `${coinsReturned}`
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+              }
+            })
+   
+        // calculate return amount 
+        let returnAmount = coinsReturned * 0.25
+        returnDisplay.innerHTML = 'Return Amount:' + ' ' + '$' + returnAmount.toFixed(2); 
+        console.log(`${returnAmount} will be returned`);
+    }
 }
+
 // take user to make purchase
 // return makePurchase();
 
@@ -19,7 +53,7 @@ function makePurchase(event) {
     const selectElem = document.getElementById('select-drink')
     const displayChoice = document.getElementById('select-label')
     
-    // on change event handler
+    // on change event handler for drink selection
     selectElem.addEventListener('change', () => {
     const selectedDrink = selectElem.selectedOptions;
     for (let i=0; i < selectedDrink.length; i++) {
@@ -66,7 +100,6 @@ function displayInventory(data) {
         console.log(drinks);
 
         const inventoryDiv = document.getElementById('inventory-div');
-
         const inventoryList = document.createElement("p");
         inventoryList.innerHTML = drinks.name;
         
