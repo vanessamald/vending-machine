@@ -3,7 +3,7 @@ function makePurchase(event) {
    
     const selectElem = document.getElementById('select-drink')
     const displayChoice = document.getElementById('select-label')
-
+    
     // on change event handler
     selectElem.addEventListener('change', () => {
     const selectedDrink = selectElem.selectedOptions;
@@ -23,7 +23,7 @@ function makePurchase(event) {
         }),
         headers: { 'Content-Type': 'application/json' }
     }).then((response) => {console.log(response)})  
-    
+   
     return acceptCoins();
     }
 })}
@@ -34,7 +34,46 @@ function acceptCoins(event) {
     console.log(coins);
 }
 
+function getInventory () {
+   fetch('/api/inventory', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((response) => {
+    if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("NETWORK RESPONSE ERROR");
+      }
+    })
+    .then(data => {
+      console.log(data);
+      displayInventory(data)
+    })
+    .catch((error) => console.error("FETCH ERROR:", error));
+   
+function displayInventory(data) {
+    for (let i =0; i < data.length; i ++) {
+        const  drinks  = data[i];
+        console.log(drinks);
+
+        const inventoryDiv = document.getElementById('inventory-div');
+
+        const inventoryList = document.createElement("p");
+        inventoryList.innerHTML = drinks.name;
+        
+        const drinkQuantity = document.createElement("p");
+        drinkQuantity.innerHTML = 'Stock Quantity:' + drinks.quantity;
+
+        inventoryDiv.appendChild(inventoryList);
+        inventoryList.appendChild(drinkQuantity);
+    }
+}}
+
 document.querySelector('#submit-drink').addEventListener('click', makePurchase);
+document.querySelector('#inventory').addEventListener('click', getInventory);
 //document.querySelector('#select-drink').addEventListener('change', makePurchase);
 
 //makePurchase();
+//getInventory();
