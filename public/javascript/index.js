@@ -1,3 +1,18 @@
+var total = 0;
+var button = document.getElementById('enter-coins');
+var displayCoins = document.getElementById('coin-div');
+
+// get total of coins from vending machine
+button.onclick = function() {
+    total++;
+    // convert to dollar amount for user and display total
+    let coins = total /4
+    displayCoins.innerHTML = coins;
+    
+}
+// take user to make purchase
+// return makePurchase();
+
 function makePurchase(event) {
     console.log('BUTTON CLICKED!')
    
@@ -23,16 +38,8 @@ function makePurchase(event) {
         }),
         headers: { 'Content-Type': 'application/json' }
     }).then((response) => {console.log(response)})  
-   
-    return acceptCoins();
     }
 })}
-
-function acceptCoins(event) {
-    const coins = document.querySelector('#coins').value
-
-    console.log(coins);
-}
 
 function getInventory () {
    fetch('/api/inventory', {
@@ -71,9 +78,4 @@ function displayInventory(data) {
     }
 }}
 
-document.querySelector('#submit-drink').addEventListener('click', makePurchase);
 document.querySelector('#inventory').addEventListener('click', getInventory);
-//document.querySelector('#select-drink').addEventListener('change', makePurchase);
-
-//makePurchase();
-//getInventory();
