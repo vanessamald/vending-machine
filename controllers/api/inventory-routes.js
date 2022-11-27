@@ -48,6 +48,7 @@ router.get('/:id', (req, res) => {
 // DELETE 
 // set response headers to X-Coins: # of coins to be returned
 router.delete('/', (req, res) => {
+    //console.log(req.body);
     let { coin } = req.body;
     console.log(coin);
         // send response headers
@@ -55,9 +56,9 @@ router.delete('/', (req, res) => {
             'Content-Type': 'multipart/form-data',
             'X-Coins': `'${coin}'`
         })  
-        console.log(`'${coin} quarter(s) will be returned'`)
-    // send response code of 204
-    res.set(204).send();   
+         // send response code of 204
+        res.statusMessage = `'${coin} quarter(s) will be returned'`;
+        res.status(204).end(); 
 })
 
 // PUT /api/inventory/:id

@@ -5,13 +5,15 @@ var returnDisplay = document.getElementById('return-display');
 
 // get total of coins from vending machine
 coinButton.onclick = function() {
+    
     totalCoins++;
+
+    var coinsAdded = totalCoins;
     // convert to dollar amount for user and display total
     let amount = totalCoins /4
     displayCoins.innerHTML = 'Total:' + ' ' + '$' + amount.toFixed(2); 
 
     // disable Adding Coins button after order submission
-
 
     // calculate how many coins need to be returned 
     let coinsReturned = totalCoins -2;
@@ -38,13 +40,7 @@ coinButton.onclick = function() {
               } 
     })
     */
-    if ( totalCoins >= 2  ) {
-        makePurchase(totalCoins);
-    }
-
-    if ( totalCoins < 2 ) {
-        return 'Sorry not enough coins!'
-    }
+    makePurchase(totalCoins);
   
     //.then(response => response.json())
    
@@ -54,11 +50,6 @@ coinButton.onclick = function() {
         console.log(`${returnAmount} will be returned`);
     }
 
-  
-//}
-
-// take user to make purchase
-// return makePurchase();
 
 function makePurchase(totalCoins) {
     
@@ -131,4 +122,19 @@ function displayInventory(data) {
     }, 5000);   
 }}
 
+function returnCoins() {
+    //const coinsReturned = coinsAdded;
+    console.log(totalCoins);
+    fetch(`/api/inventory`, {
+        method: 'DELETE',
+        body: JSON.stringify ({
+            "coin": totalCoins
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        } 
+    })
+}
+
 document.querySelector('#inventory').addEventListener('click', getInventory);
+document.querySelector('#cancel-order').addEventListener('click', returnCoins);
