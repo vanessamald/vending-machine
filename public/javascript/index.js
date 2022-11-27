@@ -25,29 +25,45 @@ coinButton.onclick = function() {
             'Content-Type': 'application/json'
           }
     })
+    /*
     // conditional statement to return coins
     if (totalCoins > 2) {
         fetch(`/api/inventory`, {
             method: 'DELETE',
-            response: JSON.stringify({
-                "coin": `${coinsReturned}`
+            params: JSON.stringify ({
+                coins: coinsReturned
             }),
             headers: {
                 'Content-Type': 'application/json'
-              }
-            })
+              } 
+    })
+    */
+    if ( totalCoins >= 2  ) {
+        makePurchase(totalCoins);
+    }
+
+    if ( totalCoins < 2 ) {
+        return 'Sorry not enough coins!'
+    }
+  
+    //.then(response => response.json())
    
         // calculate return amount 
         let returnAmount = coinsReturned * 0.25
         returnDisplay.innerHTML = 'Return Amount:' + ' ' + '$' + returnAmount.toFixed(2); 
         console.log(`${returnAmount} will be returned`);
     }
-}
+
+  
+//}
 
 // take user to make purchase
 // return makePurchase();
 
-function makePurchase(event) {
+function makePurchase(totalCoins) {
+    
+    const coin = totalCoins;
+
     console.log('BUTTON CLICKED!')
    
     const selectElem = document.getElementById('select-drink')
@@ -68,7 +84,7 @@ function makePurchase(event) {
     fetch(`/api/inventory/${id}`, {
         method: 'put',
         body: JSON.stringify({
-            id
+            coin
         }),
         headers: { 'Content-Type': 'application/json' }
     }).then((response) => {console.log(response)})  
@@ -109,6 +125,10 @@ function displayInventory(data) {
         inventoryDiv.appendChild(inventoryList);
         inventoryList.appendChild(drinkQuantity);
     }
+    // reload page
+    reloadPage(function () {
+        location.reload(true);
+    }, 5000);   
 }}
 
 document.querySelector('#inventory').addEventListener('click', getInventory);

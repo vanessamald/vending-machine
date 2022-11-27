@@ -19,7 +19,8 @@ Inventory.init(
         quantity: {
             type: DataTypes.INTEGER,
             defaultValue: 5,
-            max: 5
+            max: 5,
+            min: 0
         },
         price: {
             type: DataTypes.DECIMAL(12,2),
