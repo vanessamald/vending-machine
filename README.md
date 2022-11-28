@@ -11,6 +11,7 @@ A vending machine that takes in quarters and dispenses a drink of choice.
 - [MVC](#mvc)  
 - [API Endpoints](#api-endpoints)  
 - [Usage](#usage) 
+- [Deployment](#deployment)
 
 ## Must-Haves
 - Can only accept quarters
@@ -116,3 +117,6 @@ A vending machine that takes in quarters and dispenses a drink of choice.
 
 ![Alt text](/public/images/vending-machine-screen.jpg?raw=true "vending machine screen")
 ![Alt text](/public/images/inventory.jpg?raw=true "vending machine screen")
+
+## Deployment
+https://fathomless-garden-17006.herokuapp.com/
