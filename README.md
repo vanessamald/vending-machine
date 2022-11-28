@@ -53,6 +53,16 @@ A vending machine that takes in quarters and dispenses a drink of choice.
                 DB_USER= ''
                 DB_PASSWORD= ''
 
+    * Source schema:
+
+                mysql -root -p
+
+        * Enter password at prompt
+
+        * In MySQL database:
+
+                source db/schema.sql
+
 3. Lastly, at the root of the project run: 
                 
                 npm start
