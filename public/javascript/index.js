@@ -5,10 +5,9 @@ var returnDisplay = document.getElementById('return-display');
 
 // get total of coins from vending machine
 coinButton.onclick = function() {
-    
+    // get total coins
     totalCoins++;
 
-    var coinsAdded = totalCoins;
     // convert to dollar amount for user and display total
     let amount = totalCoins /4
     displayCoins.innerHTML = 'Total:' + ' ' + '$' + amount.toFixed(2); 
@@ -27,14 +26,12 @@ coinButton.onclick = function() {
             'Content-Type': 'application/json'
           }
     })
-    makePurchase(totalCoins);
-  
-    //.then(response => response.json())
-   
         // calculate return amount 
         let returnAmount = coinsReturned * 0.25
         returnDisplay.innerHTML = 'Return Amount:' + ' ' + '$' + returnAmount.toFixed(2); 
         console.log(`${returnAmount} will be returned`);
+
+        makePurchase(totalCoins);
     }
 
 function makePurchase(totalCoins) {
@@ -53,28 +50,38 @@ function makePurchase(totalCoins) {
         console.log(selectedDrink);
 
         // get the value
-        const id = selectedDrink;
+        let id = selectedDrink;
         // display the user's choice
         const displayChoice = document.getElementById('select-label');
         let text = drinkBtn.textContent;
         displayChoice.innerHTML = 'Your selection:' + ' ' + text;
-        
+        displayChoice.classList.add('display-messages');
+              
         // event listener for submit button
         const submitDrink = document.getElementById('submit-drink');
         submitDrink.addEventListener('click', () => {
 
             fetch(`/api/inventory/${id}`, {
-                method: 'put',
+                method: 'PUT',
                 body: JSON.stringify({
                     coin
                 }),
                 headers: { 'Content-Type': 'application/json' }
                 }).then((response) => {console.log(response)
                 
+                    
                     // if drink oos display error and send user to get returned coins 
                     if (response.status === 404) {
-                        displayChoice.innerHTML = `Sorry the selected item is out of stock!`
-                        returnCoins();
+                        displayChoice.innerHTML = `Sorry the selected item is out of stock!`;
+                        //returnCoins();
+                    } 
+                    if (response.status === 403 ) {
+                        displayChoice.innerHTML = 'Insufficient amount entered, price is $0.50';
+                        //returnCoins();
+                    }
+                    if (response.status === 200) {
+                        displayChoice.innerHTML = 'Thank you for your purchase';
+                        //returnCoins();
                     } 
                 })   
             })
@@ -117,7 +124,7 @@ function displayInventory(data) {
         inventoryDiv.appendChild(inventoryList);
         inventoryList.appendChild(drinkQuantity);
     }  
-}}
+}};
 
 function returnCoins() {
     //const coinsReturned = coinsAdded;
@@ -135,6 +142,10 @@ function returnCoins() {
     const returnAmount = totalCoins * 0.25;
     returnDisplay.innerHTML = 'Return Amount:' + '$' + returnAmount.toFixed(2);
     displayCoins.innerHTML = 'Total: $0.00';
+
+    setTimeout(function () {
+        location.reload(true);
+    }, 5000);   
 }
 
 // open/close Inventory modal from W3Schools
@@ -145,12 +156,14 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks on the button, open the modal
 inventoryModal.onclick = function() {
   modal.style.display = "block";
+  modal.classList.add('modal-style');
   getInventory();
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none"; 
+  location.reload(true);
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -160,5 +173,4 @@ window.onclick = function(event) {
   }
 }
 
-//document.querySelector('#inventory').addEventListener('click', getInventory);
 document.querySelector('#cancel-order').addEventListener('click', returnCoins);

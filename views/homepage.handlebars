@@ -1,5 +1,7 @@
 <div class="">
     <div class="flex-box"> 
+        <p class="instructions">Add coins, Select drink, and Submit</p>
+        {{!-Drink selection display-}}
         <p id="select-label"></p>
         <!-- Trigger/Open The Modal -->
         <button class="buttons inventory" id="inventory">View Inventory</button> 
@@ -13,9 +15,7 @@
             <div class="inventory-div" id="inventory-div"></div>
         </div>
         </div> 
-          
-      {{!--<label for="" class="">Choose your drink:</label>--}}
-    
+        {{!--Drink Selections--}}
         <button data="1" class="drink-button1 select-drink" type="submit" id="select-drink">Vanilla Latte</button>
         <button data="2" class="drink-button2 select-drink" type="submit" id="select-drink">Topo Chico</button>
         <button data="3" class="drink-button3 select-drink" type="submit" id="select-drink">Fiji Water</button>
@@ -34,9 +34,9 @@
         <button class="buttons" type="submit" id="cancel-order">Cancel</button> 
         </div>
 
-
+        {{!--Display Amount and Return Amount--}}
         <div class="coin-div" id="return-display"></div>
         <div class="coin-div" id="coin-div">
-        
+
     </div>
 </div>

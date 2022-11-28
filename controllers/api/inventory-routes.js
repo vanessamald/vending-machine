@@ -4,18 +4,16 @@ const Inventory = require('../../models/Inventory');
 // PUT api/inventory
 router.put('/', (req, res) => {
     res.status(204);
-    //console.log(req.body)
-    // deconstruct req.body
     let { coins } = req.body;
     console.log(coins);
  
-        // send response of coins accepted
-        res.header({
-            'Content-Type': 'multipart/form-data',
-            'X-Coins': `'${coins}'`
-        }) 
-        res.send();
-    })
+    // send response of coins accepted
+    res.header({
+        'Content-Type': 'multipart/form-data',
+        'X-Coins': `'${coins}'`
+    }) 
+    res.send();
+});
 
 // GET api/inventory 
 // return array of remaining item quantities (an array of integers)
@@ -45,8 +43,7 @@ router.get('/:id', (req, res) => {
         })
     })
 
-// DELETE 
-// set response headers to X-Coins: # of coins to be returned
+// DELETE set response headers to X-Coins: # of coins to be returned
 router.delete('/', (req, res) => {
     //console.log(req.body);
     let { coin } = req.body;
@@ -57,7 +54,7 @@ router.delete('/', (req, res) => {
             'X-Coins': `'${coin}'`
         })  
          // send response code of 204
-        res.statusMessage = `'<h1>${coin} quarter(s) will be returned<h1>'`;
+        res.statusMessage = `'${coin} quarter(s) will be returned'`;
         res.status(204).end(); 
 })
 
@@ -98,28 +95,29 @@ router.put('/:id', (req, res) => {
         // make purchase if drink is in stock and sufficient coins entered
         if (dbInventory.quantity >= 1 && coin >= 2)  {
         
-        // update db after purchase is made 
-        Inventory.update( 
-            { quantity: updatedQuantity },
-            {where: { 
-                id: req.params.id
-            } 
-        })
-        console.log(`'Inventory has been updated to ${updatedQuantity} successfully'`);
-        // send response headers that include X-Inventory-Remaining and X-Coins to be returned
-        res.header({
-            'Content-Type': 'multipart/form-data',
-            'Content-Lenght': '123',
-            'X-Inventory-Remaining': `'${updatedQuantity}'`,
-            'X-Coins': `'${coin}'`
-        })  
-        // send response body of number of items vended and response code 200
-        res.status(200);
-        // return number of items vended
-        res.send({ quantity: `${vendedItem}`});       
-        }
+            // update db after purchase is made 
+            Inventory.update( 
+                { quantity: updatedQuantity },
+                {where: { 
+                    id: req.params.id
+                } 
+            })
+            console.log(`'Inventory has been updated to ${updatedQuantity} successfully'`);
+            // send response headers that include X-Inventory-Remaining and X-Coins to be returned
+            res.header({
+                'Content-Type': 'multipart/form-data',
+                'Content-Lenght': '123',
+                'X-Inventory-Remaining': `'${updatedQuantity}'`,
+                'X-Coins': `'${coin}'`
+            })  
+            // send response body of number of items vended and response code 200
+            res.status(200);
+            // return number of items vended
+            res.send({ quantity: `${vendedItem}`});       
+            }
+        
         // if insufficient amount entered 
-        if (dbInventory.quantity >= 1 && coin === 1 ) {
+        if (coin === 1 && dbInventory.quantity >= 1 ) {
             const coinsNeeded = coin + ' ' + '/ 2';
             res.header({
                 'Content-Type': 'multipart/form-data',
@@ -127,9 +125,9 @@ router.put('/:id', (req, res) => {
             })
             // send response code 403 
             res.statusMessage = 'Insufficient amount entered!';
-            res.status(403).end();
-        }   
-    })  
+            res.status(403).end();  
+        }
+    })
 })
 
 module.exports = router;

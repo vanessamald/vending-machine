@@ -5,7 +5,6 @@ body {
     width: 100%;
     background-repeat: repeat-x;
     background-position: center;
-    
 }
 
 .title {
@@ -66,7 +65,6 @@ body {
 }
 
 .flex-box {
-    
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -116,10 +114,15 @@ body {
   /* Modal Content/Box */
   .modal-content {
     background-color: #fefefe;
+    font-family: Arial, Helvetica, sans-serif;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+  }
+
+  .modal-style {
+
   }
   
   /* The Close Button */
@@ -135,4 +138,11 @@ body {
     color: black;
     text-decoration: none;
     cursor: pointer;
+  }
+
+  .display-messages, .instructions {
+    font-size: 18px;
+    background-color: white;
+    color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   }
