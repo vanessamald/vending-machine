@@ -57,7 +57,7 @@ router.delete('/', (req, res) => {
             'X-Coins': `'${coin}'`
         })  
          // send response code of 204
-        res.statusMessage = `'${coin} quarter(s) will be returned'`;
+        res.statusMessage = `'<h1>${coin} quarter(s) will be returned<h1>'`;
         res.status(204).end(); 
 })
 
@@ -128,7 +128,7 @@ router.put('/:id', (req, res) => {
             // send response code 403 
             res.statusMessage = 'Insufficient amount entered!';
             res.status(403).end();
-        }      
+        }   
     })  
 })
 

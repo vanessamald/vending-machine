@@ -1,12 +1,9 @@
 body {
     background-image: url("../images/vending-machine.png") ;
-    
-    background-size: contain;
-    background-color: transparent;
+    background-size: cover;
     background-color: navy;
-    position: relative;
-    background-repeat: no-repeat;
-    
+    width: 100%;
+    background-repeat: repeat-x;
     background-position: center;
     
 }
@@ -17,23 +14,125 @@ body {
     font-size: 7vw;
     color: yellow;
     text-align: center;
-    margin-top: 300px;
+    margin-top: 75px;
     text-shadow: -3px 3px 0 #000,
     3px 3px 0 #000,
     3px -3px 0 #000,
     -3px -3px 0 #000;
 }
 
-.drink-button {
-    background-color: #04AA6D;
+.drink-button1, .drink-button2, .drink-button3 {
+    color: black;
+    border-radius: 8px; 
+    display: block;
+    width: 25%;
     border: none;
-    color: white;
-    padding: 40px;
+    font-weight: 900;
+    padding: 14px 28px;
+    font-size: 12px;
+    cursor: pointer;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    align-items: center;
-    font-size: 16px;
-    margin: 4px 2px;
-    border-radius: 8px;  
+    margin: 10px;
 }
+
+.drink-button1 {
+    background-color: red;
+}
+
+.drink-button2 {
+    background-color: orange;
+}
+
+.drink-button3 {
+    background-color: blue;
+}
+
+.buttons {
+    border-radius: 8px; 
+    display: block;
+    width: 25%;
+    border: none;
+    background-color: #04AA6D;
+    padding: 14px 28px;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px;
+    font-weight: 900;
+}
+
+.inventory {
+    background-color: #04AA6D;
+}
+
+.flex-box {
+    
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.inventory-div {
+    display: block;
+    color: black;
+    background-color: white;
+    background-size: 50% ;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 18px;
+}
+
+.coin-div {
+    color: white;
+    text-align: center;
+    font-size: 36px;
+}
+
+/*
+.drink-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+*/
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }

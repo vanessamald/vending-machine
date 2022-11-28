@@ -1,33 +1,42 @@
 <div class="">
-        
-    <div>     
-        
-      <label for="" class="title">Choose your drink:</label>
-        <button class="drink-button" type="submit" id="">Vanilla Latte</button>
-        <button class="drink-button" type="submit" id="">Topo Chico</button>
-        <button class="drink-button" type="submit" id="">Fiji Water</button>
-      <p id="select-label"></p>
+    <div class="flex-box"> 
+        <p id="select-label"></p>
+        <!-- Trigger/Open The Modal -->
+        <button class="buttons inventory" id="inventory">View Inventory</button> 
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content" >
+            <span class="close">&times;</span>
+            <div class="inventory-div" id="inventory-div"></div>
+        </div>
+        </div> 
+          
+      {{!--<label for="" class="">Choose your drink:</label>--}}
+    
+        <button data="1" class="drink-button1 select-drink" type="submit" id="select-drink">Vanilla Latte</button>
+        <button data="2" class="drink-button2 select-drink" type="submit" id="select-drink">Topo Chico</button>
+        <button data="3" class="drink-button3 select-drink" type="submit" id="select-drink">Fiji Water</button>
+    
+        {{!--
+        <p id="select-label"></p>
         <select name="" id="select-drink">
         {{#each drink}}
         <option index={{@index}} value="{{id}}" id="drink-choice">{{name}}</option>
          {{/each}}
         </select>
-        <button class="buttons" type="submit" id="enter-coins">Add 25 Cents</button>
-        <button class="buttons" type="submit" id="submit-drink">Enter Order</button>
-        <button class="buttons" type="submit" id="inventory">View Inventory</button>
-        <button class="buttons" type="submit" id="cancel-order">Cancel</button>
-        
-        <div id="inventory-div"></div>
-        <div id="coin-div">
-           
-        </div>
-         <p id="return-display"></p>
-        
+        --}}
 
+        <button class="buttons" type="submit" id="enter-coins">Add 1 Quarter</button>
+        <button class="buttons" type="submit" id="submit-drink">Enter Order</button>
+        <button class="buttons" type="submit" id="cancel-order">Cancel</button> 
+        </div>
+
+
+        <div class="coin-div" id="return-display"></div>
+        <div class="coin-div" id="coin-div">
+        
     </div>
 </div>
-
-
-
-
- 
