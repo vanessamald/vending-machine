@@ -143,9 +143,11 @@ function returnCoins() {
     returnDisplay.innerHTML = 'Return Amount:' + '$' + returnAmount.toFixed(2);
     displayCoins.innerHTML = 'Total: $0.00';
 
+    /*
     setTimeout(function () {
         location.reload(true);
-    }, 5000);   
+    }, 5000); 
+    */  
 }
 
 // open/close Inventory modal from W3Schools
