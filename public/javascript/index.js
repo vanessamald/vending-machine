@@ -69,18 +69,18 @@ function makePurchase(totalCoins) {
                 headers: { 'Content-Type': 'application/json' }
                 }).then((response) => {console.log(response)
                 
-                    
                     // if drink oos display error and send user to get returned coins 
                     if (response.status === 404) {
                         displayChoice.innerHTML = `Sorry the selected item is out of stock!`;
                         //returnCoins();
                     } 
-                    if (response.status === 403 ) {
-                        displayChoice.innerHTML = 'Insufficient amount entered, price is $0.50';
+                    //if (response.status === 403 ) {
+                       // displayChoice.innerHTML = 'Insufficient amount entered, price is $0.50';
                         //returnCoins();
-                    }
+                    //}
                     if (response.status === 200) {
-                        displayChoice.innerHTML = 'Thank you for your purchase';
+                        const confirmPurchase = document.getElementById('purchase-confirm')
+                        confirmPurchase.innerHTML = 'Thank you for your purchase';
                         //returnCoins();
                     } 
                 })   
